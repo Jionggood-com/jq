@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Tab选项卡</title>
+<script type="text/javascript" src="jquery-1.9.1.min.js" ></script>
+<style>
+*{margin:0;padding:0;}
+body{margin:0;padding:0;font-size:12px;}
+ul,li{list-style:none}
+a{text-decoration:none;}
+.good_tabs_title{ height:42px; color:#666666; border-bottom:1px solid #dddddd; padding-left:10px;}
+.good_tabs_title li{ height:14px; float:left;border-right:1px solid #dddddd; background:#ffffff;border-top:1px solid #dddddd; padding:14px /*30px*/20px 13px; cursor:pointer;font-size:14px;}
+.good_tabs_title li:first-child{border-left:1px solid #dddddd; }
+.good_tabs_title li:hover{ color:#ff6600;}
+.good_tabs_title li a{ text-decoration:none;}
+.good_tabs_title .active{ border-top:2px solid #fc6321; padding:13px 20px 14px; color:#ff6600;}
+.good_tabs_box{ padding:20px 10px 50px 10px;}
+.good_tabs_box .list{ display:none; line-height:1.5; overflow:hidden;}
+.good_tabs_box .list:first-child{display:block;}
+</style>
+</head>
+
+<body>
+<ul class="good_tabs_title">
+    <li class="active">Tab 1</li>						
+    <li>Tab 2</li>
+    <li>Tab 3</li>
+</ul>
+<div class="good_tabs_box">
+    <div class="list">#1</div>
+    <div class="list">#2</div>
+    <div class="list">#3</div>
+</div>
+
+<script type="text/javascript">
+ function tabs(tabTit,type){
+		 $(document).on(type,tabTit,function(){
+			$(this).addClass("active").siblings().removeClass("active").parent().next().children().eq($(this).index()).show().siblings().hide();
+		});
+	}
+	tabs(".good_tabs_title li","click");
+</script>
+</body>
+</html>
