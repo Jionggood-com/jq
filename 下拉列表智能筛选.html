@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>下拉列表智能筛选</title>
+<script type="text/javascript" src="jquery-1.9.1.min.js"></script>
+</head>
+
+<body>
+<input type="text" class="sssss">
+<ul class="sd">
+    <li><a href="#">Afgdf df fg</a></li>
+    <li><a href="#">Afssfg</a></li>
+    <li><a href="#">Bdhhssfg</a></li>
+    <li><a href="#">Bdf45fg</a></li>
+</ul>
+<script type="text/javascript">
+$(document).on("click",".sssss",function(){
+    $(this).next().show();
+});
+$(document).on("input propertychange", ".sssss", function(){
+    var keyword = $(this).val();
+    $(".sd li").hide().each(function(){
+        if($(this).find("a").text().toLowerCase().indexOf(keyword.toLowerCase())==0)
+        {
+            $(this).show();
+        }
+    });
+});
+
+
+$(document).on("click",".sd li",function(){
+    var text = $(this).text();
+    $(".sssss").val(text);
+    $(this).parent().hide();
+});
+</script>
+</body>
+</html>

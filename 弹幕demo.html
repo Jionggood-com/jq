@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>弹幕 demo</title>
+<style>
+	*{margin:0;padding:0;}
+	body{padding:0;margin:0;font-size:12px;font-family:Arial, Helvetica, sans-serif;}
+	.wrap{width:1200px;margin:0 auto;clear:both;}
+	.open{padding:10px 20px;display:inline-block;cursor:pointer;}
+	.barrage_item{position:relative;display:none;overflow:hidden;font-size:14px;}
+	.barrage_box{height:500px;position:relative;}
+	.barrage_box .scroll_box{position:absolute;top:0;bottom:0;left:0;right:0;background:rgba(0,0,0,0.8);}
+	.barrage_box b{position:absolute;left:0;top:0;display:block;height:20px;line-height:20px;overflow:hidden;color:#ffffff;font-weight:normal;font-size:16px;}
+	.barrage_item .comment{overflow:hidden;position:relative;background:#000000;padding:20px 170px 20px 20px;}
+	.barrage_item .comment .keywords{background:#ffffff;border:solid 1px #ff9900;height:40px;line-height:40px;width:100%;text-indent:10px;border-radius:5px 0 0 5px;}
+	.barrage_item .comment .send{position:absolute;top:0;bottom:0;right:20px;margin:auto;height:42px;line-height:42px;background:#ff9900;color:#ffffff;cursor:pointer;width:150px;text-align:center;border-radius:0 5px 5px 0;}
+</style>
+<script type="text/javascript" src="jquery-1.9.1.min.js"></script>
+</head>
+
+<body>
+<div class="wrap"><span class="open">Click me</span></div>
+<div class="wrap">
+	<div class="barrage_item">
+    	<div class="barrage_box">
+        	<div class="scroll_box">
+                <b>Hello world!!!!!!!!!!</b>
+                <b>My name is Jionggood, are you?</b>
+                <b>What the fuck is going on?</b>
+                <b>Good dog!!</b>
+                <b>Nice kid...</b>
+                <b>HTML+JS+DIV+CSS</b>
+            </div>
+        </div>
+        <div class="comment">
+            <input type="text" name="keywords" class="keywords">
+            <input type="hidden" name="commentNumber" value="0" id="commentNumber">
+            <input type="hidden" name="commentHeight" value="0" id="commentHeight">
+            <span class="send">Send</span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+	//初始化颜色库
+	var colorArr = ["#ffffff","#eeeeee","#dddddd","#cccccc","#bbbbbb","#aaaaaa","#999999","#336699","#ff6600","#ff9900"];
+	function randomColor(arr)
+	{
+		return arr[Math.floor(Math.random()*arr.length)];
+	}
+	
+	$(".open").click(function(){
+		$(".barrage_item").show();
+		initBarrage();
+	});
+	
+	$(".barrage_box .scroll_box").find("b").each(function(){
+		$(this).css("color",randomColor(colorArr));
+	});
+	
+	$(".barrage_item .comment .send").click(function(){
+		var top = parseInt($(this).siblings("#commentHeight").val());
+		var num = parseInt($(this).siblings("#commentNumber").val());
+		var val = toTxt($(this).siblings(".keywords").val());
+		var left = $(this).parents(".comment").prev().width();
+		var height = $(this).parents(".comment").prev().height();
+		
+		top = top+30;
+		if(top>=height-50){
+			top=0;
+		}
+		var html='<b class="new_'+num+'" style="left:'+left+'px;top:'+top+'px;color:'+randomColor(colorArr)+'">'+val+'</div>';
+	 	$(".barrage_box .scroll_box").append(html);
+	   	$(this).siblings(".keywords").val('');
+	   
+	 	var obj = $(".new_"+num);
+	 	var time=10000;
+		if(obj.index()%2==0){
+			time=12000;
+		}
+		if(obj.index()%3==0){
+			time=14000;
+		}
+		if(obj.index()%4==0){
+			time=16000;
+		}
+		if(obj.index()%5==0){
+			time=18000;
+		}
+		if(obj.index()%6==0){
+			time=20000;
+		}
+		if(obj.index()%8==0){
+			time=23000;
+		}
+		
+		obj.animate({"left":"-"+left+"px"},time,function(){
+			run(obj,time,left);
+		});
+		
+		num += 1;
+		$(this).siblings("#commentNumber").val(num);
+		$(this).siblings("#commentHeight").val(top);
+		
+		if($(".barrage_box .scroll_box b").length==500){
+			$(".barrage_box .scroll_box b").eq(250).prevAll().remove();
+		}
+	});
+	
+	//初始化滚动
+	function initBarrage(){
+		var top = 0;
+		$(".barrage_box .scroll_box").find("b").each(function(){
+			var obj = $(this);
+			var left = obj.parents(".barrage_box").width()-obj.width();
+			var height = obj.parents(".barrage_box").height();
+			
+			top = top+50;
+			if(top>height-100)
+			{
+				top = 0;
+			}
+			obj.css({"left":left,"top":top});
+			
+			var time = 10000;
+			if(obj.index()%2==0){
+				time = 10000;
+			}
+			if(obj.index()%3 == 0){
+				time = 14000;
+			}
+			if(obj.index()%4 == 0){
+				time = 16000;
+			}
+			if(obj.index()%5 == 0){
+				time = 18000;
+			}
+			if(obj.index()%7 == 0){
+				time = 20000;
+			}
+			if(obj.index()%8 == 0){
+				time = 23000;
+			}
+			
+			obj.animate({"left":"-"+left+"px"},time,function(){
+				run(obj,time,left);
+			});
+		});
+	}
+	
+	function run(obj,time,left){
+		var obj = $(obj);
+		obj.css("left",left);
+		obj.animate({"left":"-"+left+"px"},time,function(){
+			run(obj,time,left);
+		});
+	}
+	
+	/*正则表达式 替换括号,尖括号等*/  
+	function toTxt(str) {  
+		var RexStr = /\<|\>|\"|\'|\&/g;
+		str = str.replace(RexStr, function(MatchStr) {  
+			switch (MatchStr) {  
+			case "<":  
+				//return "&lt;";
+				return "";   
+				break;  
+			case ">":  
+				//return "&gt;";  
+				return "";
+				break;  
+			case "\"":  
+				//return "&quot;"; 
+				return ""; 
+				break;  
+			case "'":  
+				//return "&#39;";  
+				return "";
+				break;  
+			case "&":  
+				//return "&amp;"; 
+				return ""; 
+				break;  
+			default:  
+				break;  
+			};
+		});
+		return str;  
+	}  
+</script>
+</body>
+</html>
