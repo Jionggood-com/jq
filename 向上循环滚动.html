@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>JQ向上循环滚动</title>
+<script type="text/javascript" src="jquery-1.9.1.min.js" ></script>
+<style>
+*{margin:0;padding:0;}
+body{margin:0;padding:0;font-size:12px;}
+ul,li{list-style:none}
+a{text-decoration:none;}
+.move_light{margin-top:100px;background:#ccc;height:24px;line-height:24px;width:960px;overflow:hidden}
+.move_light ul li{height:24px;line-height:24px;}
+</style>
+</head>
+
+<body>
+<div class="move_light">
+	<ul>
+		<li>赵建平：LED在产品应用推广过程中，厂家应该清楚地告诉设计师或设计院的设计人员，产品利用系数、维护系数分别是多少，才便于设计人员进行产品的选择。</li>
+		<li>窦林平：政策补贴中存在补不下去的问题，原因在于大家是低价中标，不是产品正常价格。</li>
+		<li>吴玲：新的时代需要政府，机构，企业抱团，我们要学习三星的追求未来，不注眼前小利的战略眼光。</li>
+		<li>王洪：第三代半导体材料的应用预示着光电信息乃至光子信息时代的来临。</li>
+		<li>李晋闽：LED产品有什么样的标识，可以让普通消费者一看标志就知道是合格产品进而进行购买？</li>
+		<li>周檀煜：我们的政府机构能否在引导和扶持民族品牌上给些力，给些呵护，世界的LED大潮需要中国的民族品牌诞生。</li>
+		<li>全健：现在的EMC项目在具体实施过程中，业主、财政局、城管局、养护方、EMC提供方就项目招标本身想法各异，有点同床异梦。</li>
+		<li>刘金兰：EMC模式对企业来讲，我们是欢迎的，且实践得不错。</li>
+	</ul>
+</div>
+<script type="text/javascript">
+	function MYscroll(obj){
+		var o = $(obj);
+		var ul = o.find('ul');
+		var height = o.height();
+		var move =function(){
+			ul.stop().animate({"margin-top":-height},500,function(){
+				ul.find('li').eq(0).appendTo(ul);
+				ul.css("margin-top","0px");
+			});
+		}
+		var _time = setInterval(move,3000);
+		o.hover(function(){
+			clearInterval(_time);
+		},
+		function(){
+			_time=setInterval(move,3000);
+		});
+	}
+	
+	MYscroll('.move_light');
+</script>
+</body>
+</html>

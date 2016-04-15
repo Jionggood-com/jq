@@ -1,0 +1,130 @@
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>封装函数左右滑动，图片与文字广告</title>
+<script type="text/javascript" src="jquery-1.9.1.min.js"></script>
+<style>
+   
+.hz-ads,
+.hz-adssss{
+    height: 140px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    position: relative;
+    width: 260px;
+}
+
+ul {
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+     width: 260px;height: 140px;
+}
+li {
+    position: relative;
+    float:left;
+    padding:0;
+    margin:0;;
+    background:red;
+    height: 140px;
+     width: 260px;
+     overflow:hidden;
+}
+ul, li {
+    list-style: outside none none;
+}
+
+img {
+    border: 1px solid #ccc;
+    height: 138px;
+    width: 258px;
+}
+ul .hz-company {
+    border: 1px solid #b5b4b4;
+    color: #333333;
+    cursor: pointer;
+    font-size: 12px;
+    height: 138px;
+    left: 260px;
+    margin: 0 0 4px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    text-align: left;
+    top: 0;
+    width: 258px;
+    z-index: 1;
+}
+.hz-company h4 {
+    color: #000;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    height: 30px;
+    line-height: 30px;
+    margin: 5px 10px 0;
+    text-align: center;
+    vertical-align: middle;
+    width: 240px;
+}
+
+.hz-company p {
+    color: #333333;
+    height: 36px;
+    line-height: 18px;
+    margin: 10px;
+    text-shadow: none !important;
+    width: 240px;
+}
+
+.hz-company samp {
+    display: block;
+    height: 16px;
+    line-height: 16px;
+    margin: 5px 10px;
+    overflow: hidden;
+    padding: 0;
+    white-space: nowrap;
+    width: 240px;
+}
+</style>
+</head>
+
+<body>
+<div class="hz-ads">
+        <ul>
+          <li><a target="_blank" href=""><img src="http://fc.lightingchina.com/ad/wenxin.gif"></a> </li>
+          <li class="hz-company">
+            <h4>全球最大LED暨LED照明产业盛会</h4>
+            <p>第十一届广州国际LED展（上海站）</p>
+            <samp>时间：2015年9月16-19日</samp> <samp>地点：上海新国际博览中心</samp> </li>
+        </ul>
+      </div>
+      <div class="hz-ads">
+        <ul>
+          <li><a target="_blank" href=""><img src="http://fc.lightingchina.com/ad/wenxin.gif"></a> </li>
+          <li class="hz-company">
+            <h4>全球最大LED暨LED照明产业盛会</h4>
+            <p>第十一届广州国际LED展（上海站）</p>
+            <samp>时间：2015年9月16-19日</samp> <samp>地点：上海新国际博览中心</samp> </li>
+        </ul>
+      </div>
+     
+      <script type="text/javascript">
+      function move(obj){
+            $(obj).hover(function(){
+            $(this).find("li:first").animate({left:"-260px"},500);
+            $(this).find("li:last").animate({left:"0"},500);
+        },function(){
+            $(this).find("li:first").animate({left:"0"},500);
+            $(this).find("li:last").animate({left:"260px"},500);
+        });
+        }
+          move(".hz-ads");
+        move(".hz-adssss");
+       
+      </script>
+</body>
+</html>
