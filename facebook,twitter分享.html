@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>facebook,twitter分享</title>
+</head>
+
+<body><a href="javascript:void();" onClick="showfacebookShare();"></a>
+<a href="javascript:void();" onClick="shareTW();"></a>
+<div id="fb-root"></div>
+   
+    <script type="text/javascript">
+        /*function modal_stop(){
+            var modal_content = $('.module .modal_container').children().eq(0);
+            modal_content.hover(
+                function(){
+                    modal_scroller = false;
+                },
+                function(){
+                    modal_scroller=false;
+                }
+            );
+        }
+       
+       
+        var myHtml = '<div class="snapupbox"><i>×</i><img src="'+$(".i2015_rule").attr("data")+'"></div>'
+       
+        $(document).on("click",".snapupbox i",function(){
+            $(this).parents(".module").remove();
+            $("body").removeClass("noscroll");
+            $("html,body").animate({ scrollTop:0});
+            $.cookie("snapup_cookie", "close", {expires:3});
+        });
+        if(!($.cookie("snapup_cookie") ===  "close"))
+        {
+            modal_bg();
+            $('.modal_container').append(myHtml);
+            modal_add();
+            $('html,body').animate({scrollTop:$(".i2015_banner").eq(0).next().offset().top},300);
+            modal_stop();
+            var modal_scroller=false;
+        }*/
+       
+        var share_html = ''+
+            '<div class="facebook">'+
+                '<a href="javascript:void();" onClick="showfacebookShare();"></a>'+
+            '</div>'+
+            '<div class="twitter">'+
+                '<a href="javascript:void();" onClick="shareTW();"></a>'+
+            '</div>'
+        $(".fixed_button .app_btn").before(share_html);
+       
+       
+       
+        function showfacebookShare() {
+            var url = homeUrl+'snapup.html';
+            var snapupImg = $(".i2015_banner").eq(0).find("img");
+            var image =  $('meta[property="og:image"]').attr("content");
+            var title = snapupImg.attr("alt");
+            var product_desctiption = snapupImg.attr("data");
+            var params = {
+                    method: 'feed',
+                    display: 'popup',
+                    link: url,
+                    picture: image,
+                    name: title,
+                    caption: 'banggood',
+                    description: product_desctiption
+            };
+            FB.ui(params, function(response) {
+                if (response && response.post_id) {
+                    /*$.getJSON('http://graph.facebook.com/', 'id=' + url, function(json) {
+                        $("#fb-share-counter .num").html(json.shares);
+                    });*/
+                }
+            });
+        }
+   
+   
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId: '246353225430376',
+                xfbml: true,
+                version: 'v2.3',
+                status: true,
+                cookie: true
+            });
+        };
+        (function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id;
+                js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4";
+                fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+   
+    //推特分享
+        function shareTW(){
+            var url = homeUrl+'snapup.html';
+            var snapupImg = $(".i2015_banner").eq(0).find("img");
+            var title = snapupImg.attr("alt");
+            var product_desctiption = snapupImg.attr("data");
+            window.open('http://twitter.com/home/?status='.concat(encodeURIComponent(title)) .concat(' ') .concat(encodeURIComponent(url)),'SNAP UP EVERY DEAL YOU WILL LOVE','height=450,width=600,top=0,left=0,toolbar=no');
+        }
+    </script>
+</body>
+</html>

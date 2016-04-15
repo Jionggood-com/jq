@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>iframe指定URL允许加载</title>
+<script type="text/javascript">
+    if(top!=self){
+        var host_name=["www.banggood.com","www.htcmania.com"];
+        var is_contain=host_name.some(function(item){
+            return document.referrer.match(item)!=null;
+        })
+        if(!is_contain)    self.location.href = "about:blank";   
+    }   
+</script>
+</head>
+
+<body>
+
+
+
+<iframe src='http://www.banggood.com' width='0' height='0' scrolling='no' frameBorder='0'></iframe>
+</body>
+</html>
