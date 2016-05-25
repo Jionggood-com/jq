@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>焦点图左右点击，能自动播放</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="jquery-1.9.1.min.js"></script>
+    <style>
+        *{padding: 0;margin: 0;}
+        .pic{width:800px;background:gray;height:400px;margin:0 auto;position:relative;}
+        .scroll{width: 500px;height: 400px;margin: 0 auto;overflow: hidden;}
+       
+        ul,li{list-style: none;}
+        .scroll .list{width:500px;height:350px;background:#f4f4f4;overflow:hidden;}
+        .scroll .list li{width: 500px;height: 350px;text-align:center;background:red;float:left;}
+        .scroll .list li img{}
+        .pic .chang{position:absolute;top:50%;width:40px;height:40px;background:black}
+        .pic .prev{left:0}
+        .pic .next{right:0}
+    </style>
+</head>
+<body>
+    <div class="pic">
+        <div class="chang prev">sd</div>
+        <div class="chang next">sd</div>
+        <div class="scroll">
+            <ul class="list">
+                <li id="1" style="background:#000" class="active"><img src="http://img.banggood.com/thumb/view/upload/2015/09/SKU276451%20(12).jpg" alt=""></li>
+                <li id="2" style="background:#222"><img src="http://img.banggood.com/thumb/grid/upload/2012/xiemeijuan/SKU105367%20(11).jpg" alt=""></li>
+                <li id="3" style="background:#444"><img src="http://img.banggood.com/thumb/grid/upload/2014/10/SKU166074%20(5).jpg" alt=""></li>
+                <li id="4" style="background:#666"><img src="http://img.banggood.com/thumb/grid/upload/2014/10/SKU172617%20(3).jpg" alt=""></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function pic(obj){
+            var width = $(obj).find(".list li").width();
+            var num = $(obj).find(".list li").length;
+            $(obj).find(".list").css("width",num*width);
+            $(obj).find(".list li").removeClass("active");
+            $(obj).find(".list li").eq(0).addClass("imgactive");
+            $(obj).find(".prev").click(function(){
+                $(this).siblings(".scroll").find("ul").stop().animate({"margin-left":-width},200,function(){
+                    $(obj).find("li").eq(0).appendTo($(obj).find("ul"));
+                    $(obj).find("ul").css("margin-left",0);
+                    $(obj).find("li").eq(0).addClass("active").siblings().removeClass("active");
+                });
+            });
+            $(obj).find(".next").click(function(){
+                $(this).siblings(".scroll").find("ul li:last").prependTo($(this).siblings(".scroll").find("ul"));
+                $(obj).find("li").eq(0).addClass("active").siblings().removeClass("active");
+                $(obj).find("ul").css("margin-left",-width);
+                $(this).siblings(".scroll").find("ul").stop().animate({"margin-left":0},200,function(){
+                    $(obj).find("ul").css("margin-left",0);
+                   
+                });
+            });
+            function moveauto(){
+                var ul = $(obj).find(".list");
+                var li = $(obj).find(".list li");
+                var active = $(obj).find(".list li.active");
+                if(!$(obj).find(".list li:first-child").hasClass("imgactive")){
+                ul.stop().animate({"margin-left":-width},200,function(){
+                    $(obj).find("li").eq(0).appendTo($(obj).find("ul"));
+                    $(obj).find("ul").css("margin-left",0);
+                    $(obj).find("li").eq(0).addClass("active").siblings().removeClass("active");
+                });
+                }
+                $(obj).find(".list li").removeClass("imgactive");
+            }
+            moveauto();
+            var movetime=setInterval(moveauto,3000);
+            $(obj).hover(function(){clearInterval(movetime);},function(){movetime = setInterval(moveauto,3000);});
+        }
+       
+       
+        pic(".pic");
+    </script>
+</body>
+</html>
