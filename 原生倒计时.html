@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="jquery-1.9.1.min.js"></script>
+</head>
+<body>
+	<input type="hidden" value="86450" id="start_time">
+	<div class="time_wrap" id="today_time">
+        This round ends in:
+        <span class="times"><span>0 Days</span>  <span>00</span>:<span>00</span>:<span>00</span></span>
+    </div>
+
+    <script>
+    _LD_DAY = "Day";
+    _LD_DAYS = "Days";
+	var time = parseInt($('#start_time').attr('value'));
+    time = Math.abs(time);
+    var time_aotu;
+    function count_down() {
+        var day = parseInt((time / 3600) / 24);
+        var hours = parseInt((time / 3600) % 24);
+        var minute = parseInt((time % 3600) / 60);
+        var second = parseInt((time % 3600) % 60);
+        var dayhtml = '';
+        if (day > 1) {
+            day = day + ' ' + _LD_DAYS;
+        } else if(day==1) {
+            day = day + ' ' + _LD_DAY;
+        }
+        else{
+        	day = '';
+        }
+        if (hours < 10) {
+            hours = '0' + hours;
+        }
+        if (minute < 10) {
+            minute = '0' + minute;
+        }
+        if (second < 10) {
+            second = '0' + second;
+        }
+
+        var dayhtml = '<span>' + day + '</span>';
+
+        if(day==0){
+        	dayhtml = ''
+        }
+
+        var txt = dayhtml + ' <span>' + hours + '</span>:<span>' + minute + '</span>:<span>' + second + '</span>';
+        $('.time_wrap .times').html(txt);
+        time--;
+        if (time < 0) {
+            clearInterval(time_aotu);
+        }
+    }
+    time_aotu = setInterval(function () {
+        count_down();
+    }, 1000);
+			
+    </script>
+</body>
+</html>
