@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>web进度条 – Nprogress</title>
+	<script src="jquery-1.9.1.min.js"></script>
+	<style>
+		#nprogress{pointer-events:none}
+#nprogress .bar{background:#f40;position:fixed;z-index:10010;top:0;left:0;width:100%;height:2px;transform:translate3d(-100%, 0, 0)}
+#nprogress .bar.loading{transform:translate3d(-2%, 0, 0) !important;transition:all 1s !important;}
+#nprogress .peg{display:block;position:absolute;right:0;width:100px;height:100%;box-shadow:0 0 10px #f40,0 0 5px #f40;opacity:1;-webkit-transform:rotate(3deg) translate(0,-4px);-ms-transform:rotate(3deg) translate(0,-4px);transform:rotate(3deg) translate(0,-4px)}
+#nprogress .spinner{display:block;position:fixed;z-index:10010;top:15px;right:15px}
+#nprogress .spinner-icon{width:18px;height:18px;box-sizing:border-box;border:solid 2px transparent;border-top-color:#f40;border-left-color:#f40;border-radius:50%;-webkit-animation:nprogress-spinner .4s linear infinite;animation:nprogress-spinner .4s linear infinite}
+@-webkit-keyframes nprogress-spinner{0%{-webkit-transform:rotate(0)}
+100%{-webkit-transform:rotate(360deg)}
+}
+@keyframes nprogress-spinner{0%{transform:rotate(0)}
+100%{transform:rotate(360deg)}
+}
+	</style>
+</head>
+<body>
+<p style="padding:10px">Click</p>
+<script>
+	var html = ''+
+		'<div id="nprogress">'+
+			'<div class="bar" role="bar">'+
+				'<div class="peg"></div>'+
+			'</div>'+
+			'<div class="spinner" role="spinner">'+
+				'<div class="spinner-icon"></div>'+
+			'</div>'+
+		'</div>';
+
+		$("p").click(function(){
+			$('body').append(html);
+			//$("#nprogress").css({"transition": "all 0.2s", "opacity": "1"});
+			//$("#nprogress .bar").css({"transform":"translate3d(-100%, 0, 0)", "transition": "all 0.2s"});
+			setTimeout(function(){
+				$(".bar").addClass("loading");
+			},500);
+		});
+		
+
+		/*$.ajax({
+			url:'',
+			type : 'get',
+			data :'',
+			dataType:'html',
+			success:function(html){
+				$("#nprogress").remove();
+			}   
+		});*/
+
+		
+
+
+</script>
+	
+</body>
+</html>
