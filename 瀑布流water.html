@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script type="text/javascript" src="jquery-1.9.1.min.js" ></script>
+<style>
+	*{padding:0;margin:0}
+	body{padding:0;margin:0}
+	ul,li{list-style:none;}
+	.wrap{margin:0 auto;width:640px;overflow:hidden;}
+	.wrap ul{float:left;width:310px;float:left;overflow:hidden;margin-left:20px;}
+	.wrap ul:first-child{margin:0;}
+	.wrap li{margin:0 0 20px;}
+	.wrap .c{display:block;height:150px;border:solid 1px #ddd}
+	.wrap .d{display:block;height:210px;border:solid 1px #ddd}
+</style>
+</head>
+
+<body>
+<div style="height:700px"></div>
+<div class="wrap images_water">
+	<ul class="a">
+    	<li><span class="c"></span></li>
+        <li><span class="c"></span></li>
+    </ul>
+    <ul class="b">
+    	<li><span class="d"></span></li>
+        <li><span class="d"></span></li>
+    </ul>
+</div>
+<script type="text/javascript">
+	$(window).scroll(function(){	
+		if($("body").find(".loading").length>0) return;
+		var srollHeight = $(this).scrollTop();   
+		var docHeight = $(document).height(); 
+		var firstLi = ['<li><span class="d"></span></li>','<li><span class="c"></span></li>','<li><span class="d"></span></li>','<li><span class="d"></span></li>','<li><span class="c"></span></li>','<li><span class="c"></span></li>']
+		
+		
+		if (docHeight - srollHeight - $(this).height()<20)
+		{
+			var appendDiv = '<div class="loading">loading...</div>';
+			$("body").append(appendDiv);				
+			ZSwater(".images_water" , 2, firstLi);
+			$("body").find(".loading").remove();
+		}
+	});
+</script>
+<script type="text/javascript">
+;(function($){
+		$.ZSwater ={
+			setup: function(o,col,ajaxData){
+				var $o  = $(o).children();
+				var heightArray  = [];
+				var htmlArray 	 = [];
+				if(ajaxData){
+					$.each(ajaxData, function(key, val){
+						var column = key % col + 1 ;
+						var _this  =  htmlArray[column-1];
+						if(_this){
+							htmlArray[column-1] = _this + val;
+						}
+						else
+						{
+							htmlArray[column-1] = val
+						}
+					});
+				}
+				$o.each(function(){
+					var $this = $(this);
+					if(ajaxData) $this.append(htmlArray[($this.index())]);
+					eval('heightArray['+ $this.index() +'] = ' + $this.outerHeight());
+				});
+				$.ZSwater.move(o, heightArray);
+			},
+			move: function(o, heightArray){
+				var $o  = $(o).children();
+				
+				$.each(heightArray, function(key,val){
+					var compareR = 0, _k = 0, _key = 0;
+					for(var k = 0; k<heightArray.length; k++)
+					{
+						if(k!=key){
+							var liLast  = $o.eq(key).children(":last");
+							var compare = val - liLast.outerHeight(true) - heightArray[k];
+							if(compare > 0){
+								if(compare>compareR){
+									_k = k;
+									_key = key;
+									compareR = compare;
+								}
+							}
+						}
+					}
+					if(compareR>0){
+						$o.eq(_key).children(":last").appendTo($o.eq(_k));
+						$o.eq(_k).children(":last").css({"background":"#e33057"});
+						$o.each(function(){
+							var $_this = $(this);
+							eval('heightArray['+ $_this.index() +'] = ' + $_this.outerHeight());
+						});
+						$.ZSwater.move(o,heightArray);
+						return false;
+					}
+				});
+			}
+		}
+		ZSwater = function(obj,col,ajaxData){$.ZSwater.setup(obj,col,ajaxData)}
+	})(jQuery);
+</script>
+</body>
+</html>

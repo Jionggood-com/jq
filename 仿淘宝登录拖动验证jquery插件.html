@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>拖动验证jquery插件</title>
+	<link href="common.css" rel="stylesheet" type="text/css"/>
+	<script src="jquery-1.9.1.min.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="check_captcha">
+    <span class="init">Loading</span>
+</div>
+<script src="js/jq.captcha.js" type="text/javascript"></script>
+<script type="text/javascript">
+	var Captcha_text = 'Please slide to verify';
+	var Captcha_ok_text = 'Verified'; 
+	$('.check_captcha').JiongCaptcha();
+</script>
+</body>
+</html>

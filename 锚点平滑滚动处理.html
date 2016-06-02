@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>锚点平滑滚动处理</title>
+<script type="text/javascript" src="jquery-1.9.1.min.js"></script>
+
+<style>
+   
+</style>
+</head>
+
+<body>
+<ul>
+    <li><a class="uptodaxie" href="#NECKLACES">NECKLACES</a></li>
+    <li><a class="uptodaxie" href="#EARRINGS">EARRINGS</a></li>
+    <li><a class="uptodaxie" href="#RINGS">RINGS</a></li>
+    <li><a class="uptodaxie" href="#BRACELETS">BRACELETS</a></li>
+</ul>
+<div></div>
+<div id="NECKLACES"><div style="height:1000px;background:red">sd</div></div>
+<div id="EARRINGS"><div style="height:1000px;background:blue">sd</div></div>
+<div id="RINGS"><div style="height:1000px;background:yellow">sd</div></div>
+<div id="BRACELETS"><div style="height:1000px;background:black">sd</div></div>
+<script type="text/javascript">
+//锚点平滑滚动处理
+    $("a[href*=#],area[href*=#]").click(function(){
+        if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+            var $target = $(this.hash);
+            $target = $target.length && $target || $('[name=' + this.hash.slice(1) + ']');
+            if ($target.length) {
+                var targetOffset = $target.offset().top;
+                $('html,body').animate({
+                    scrollTop: targetOffset
+                },
+                300);
+                return false;
+            }
+        }
+    });
+</script>
+</body>
+</html>
